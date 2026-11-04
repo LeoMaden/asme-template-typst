@@ -125,3 +125,11 @@ The reference style is chosen by the template, so call `#bibliography("refs.bib"
   - use the U+2010 hyphen in report numbers like `DETC2005‐99532`;
   - LaTeX macros (`\texttt`, `\TeX`) are not interpreted.
 - **Thesis types:** PhD and master's theses print "Doctoral dissertation" / "Master's thesis" unless `type = {Ph.D. Thesis}` is given.
+
+## Licence
+
+The template, reference styles, example paper and sample files are under the MIT licence in `LICENSE`, including the
+parts derived from the asmeconf class by John H. Lienhard. The fonts in `fonts/` have their own licences; see
+`fonts/README.md`.
+
+This project is not affiliated with or endorsed by ASME.
