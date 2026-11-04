@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" default-locale="en-US">
+  <info>
+    <title>ASME Conference Papers (strict)</title>
+    <id>asmeconf-typst-strict</id>
+    <summary>Numeric ASME conference reference style following the ASME guide literally: serial comma before "and" for three or more authors. Otherwise as asmeconf.csl, modelled on asmeconf.bst (J. H. Lienhard) and
+      https://www.asme.org/publications-submissions/proceedings/author-guidelines/elements-of-a-paper/references</summary>
+    <category citation-format="numeric"/>
+    <category field="engineering"/>
+    <updated>2026-11-03T00:00:00+00:00</updated>
+    <rights license="https://opensource.org/licenses/MIT">MIT</rights>
+  </info>
+  <locale xml:lang="en">
+    <terms>
+      <term name="editor" form="short">
+        <single>ed.</single>
+        <multiple>eds.</multiple>
+      </term>
+      <term name="accessed">Accessed</term>
+      <term name="volume" form="short">Vol.</term>
+      <term name="issue" form="short">No.</term>
+      <term name="chapter" form="short">Chap.</term>
+      <term name="page" form="short">
+        <single></single>
+        <multiple>pp.</multiple>
+      </term>
+      <term name="edition" form="short">ed.</term>
+      <term name="version">Version</term>
+    </terms>
+  </locale>
+
+  <!-- Names: Last, First and Last, First (all inverted, as asmeconf.bst) -->
+  <macro name="author-names">
+    <names variable="author">
+      <name name-as-sort-order="all" sort-separator=", " delimiter=", " and="text" delimiter-precedes-last="contextual" initialize="false"/>
+      <label form="short" prefix=" (" suffix=")"/>
+      <substitute>
+        <names variable="editor"/>
+        <names variable="translator"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="editors-in-container">
+    <names variable="editor">
+      <name name-as-sort-order="all" sort-separator=", " delimiter=", " and="text" delimiter-precedes-last="contextual" initialize="false"/>
+      <label form="short" prefix=" (" suffix=")"/>
+    </names>
+  </macro>
+
+  <macro name="title-quoted">
+    <text variable="title" quotes="true" suffix="."/>
+  </macro>
+  <macro name="title-italic">
+    <text variable="title" font-style="italic"/>
+  </macro>
+  <macro name="container-italic">
+    <text variable="container-title" font-style="italic"/>
+  </macro>
+  <macro name="year">
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
+  </macro>
+  <macro name="year-paren">
+    <date variable="issued" prefix="(" suffix=")">
+      <date-part name="year"/>
+    </date>
+  </macro>
+  <macro name="pages">
+    <choose>
+      <if variable="page">
+        <group delimiter=" ">
+          <label variable="page" form="short"/>
+          <text variable="page"/>
+        </group>
+      </if>
+      <else-if variable="number">
+        <!-- article number / eid -->
+        <text variable="number"/>
+      </else-if>
+    </choose>
+  </macro>
+  <macro name="publisher-place">
+    <group delimiter=", ">
+      <choose>
+        <if variable="publisher">
+          <text variable="publisher"/>
+        </if>
+        <else>
+          <text variable="authority"/>
+        </else>
+      </choose>
+      <text variable="publisher-place"/>
+    </group>
+  </macro>
+  <macro name="edition">
+    <choose>
+      <if is-numeric="edition">
+        <group delimiter=" ">
+          <number variable="edition" form="ordinal"/>
+          <text term="edition" form="short"/>
+        </group>
+      </if>
+      <else>
+        <text variable="edition"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="version">
+    <group delimiter=" ">
+      <text term="version"/>
+      <number variable="version"/>
+    </group>
+  </macro>
+  <macro name="series-volume">
+    <choose>
+      <if variable="collection-title">
+        <group delimiter=" ">
+          <group delimiter=" ">
+            <text term="volume" form="short"/>
+            <text variable="volume"/>
+            <text value="of"/>
+          </group>
+          <text variable="collection-title" font-style="italic"/>
+        </group>
+      </if>
+      <else-if variable="volume">
+        <group delimiter=" ">
+          <text term="volume" form="short"/>
+          <text variable="volume"/>
+        </group>
+      </else-if>
+    </choose>
+  </macro>
+  <macro name="access">
+    <group delimiter=", ">
+      <date variable="accessed" prefix="Accessed ">
+        <date-part name="month"/>
+        <date-part name="day" prefix=" " suffix=","/>
+        <date-part name="year" prefix=" "/>
+      </date>
+      <choose>
+        <if variable="DOI">
+          <text variable="DOI" prefix="DOI "/>
+        </if>
+      </choose>
+    </group>
+  </macro>
+  <macro name="doi-url">
+    <group delimiter=". ">
+      <text variable="DOI" prefix="DOI "/>
+      <choose>
+        <if variable="DOI" match="none">
+          <text variable="URL" prefix="URL "/>
+        </if>
+        <else>
+          <choose>
+            <if match="any" type="paper-conference thesis report">
+              <text variable="URL" prefix="URL "/>
+            </if>
+          </choose>
+        </else>
+      </choose>
+    </group>
+  </macro>
+  <macro name="online-access">
+    <group delimiter=", ">
+      <date variable="accessed" prefix="Accessed ">
+        <date-part name="month"/>
+        <date-part name="day" prefix=" " suffix=","/>
+        <date-part name="year" prefix=" "/>
+      </date>
+      <text variable="URL" prefix="URL "/>
+    </group>
+  </macro>
+
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout prefix="[" suffix="]" delimiter=", ">
+      <group delimiter=", ">
+        <text variable="citation-number"/>
+        <text variable="locator"/>
+      </group>
+    </layout>
+  </citation>
+
+  <bibliography entry-spacing="0" second-field-align="flush">
+    <layout>
+      <text variable="citation-number" prefix="[" suffix="]"/>
+      <group delimiter=" " suffix=".">
+        <text macro="author-names" suffix="."/>
+        <choose>
+          <!-- Journal article -->
+          <if type="article-journal article-magazine article-newspaper" match="any">
+            <text macro="title-quoted"/>
+            <group delimiter=": ">
+              <group delimiter=" ">
+                <text macro="container-italic"/>
+                <group delimiter=" ">
+                  <text term="volume" form="short"/>
+                  <text variable="volume"/>
+                </group>
+                <group delimiter=" ">
+                  <text term="issue" form="short"/>
+                  <text variable="issue"/>
+                </group>
+                <text macro="year-paren"/>
+              </group>
+              <text macro="pages"/>
+            </group>
+          </if>
+          <!-- Conference paper -->
+          <else-if type="paper-conference">
+            <text macro="title-quoted"/>
+            <text macro="container-italic" suffix="."/>
+            <group delimiter=": " suffix=".">
+              <choose>
+                <if variable="number">
+                  <text variable="number"/>
+                </if>
+                <else>
+                  <text variable="issue"/>
+                </else>
+              </choose>
+              <text macro="pages"/>
+            </group>
+            <group delimiter=", " suffix=".">
+              <text variable="event-place"/>
+              <date variable="event-date" delimiter=" "><date-part name="month"/><date-part name="day"/></date>
+              <text macro="year"/>
+            </group>
+          </else-if>
+          <!-- Chapter / section of a book -->
+          <else-if type="chapter entry-encyclopedia entry-dictionary" match="any">
+            <text macro="title-quoted"/>
+            <text macro="editors-in-container" suffix="."/>
+            <text macro="container-italic" suffix="."/>
+            <text macro="series-volume" suffix="."/>
+            <group delimiter=": ">
+              <group delimiter=" ">
+                <text macro="publisher-place"/>
+                <text macro="year-paren"/>
+              </group>
+              <group delimiter=", ">
+                <group delimiter=" ">
+                  <text term="chapter" form="short"/>
+                  <text variable="chapter-number"/>
+                </group>
+                <text macro="pages"/>
+              </group>
+            </group>
+          </else-if>
+          <!-- Thesis -->
+          <else-if type="thesis">
+            <text macro="title-quoted"/>
+            <group delimiter=", " suffix=".">
+              <text variable="genre"/>
+              <text variable="authority"/>
+              <text variable="publisher-place"/>
+            </group>
+            <text macro="year"/>
+          </else-if>
+          <!-- Technical report -->
+          <else-if type="report">
+            <text macro="title-quoted"/>
+            <group delimiter=" " suffix=".">
+              <text variable="genre" text-case="capitalize-all"/>
+              <text variable="number"/>
+            </group>
+            <group delimiter=", " suffix=".">
+              <text variable="authority"/>
+              <text variable="publisher-place"/>
+            </group>
+            <text macro="year"/>
+          </else-if>
+          <!-- Web pages, software, packages -->
+          <else-if type="webpage post post-weblog software dataset" match="any">
+            <text macro="title-quoted"/>
+            <choose>
+              <if variable="authority publisher" match="any">
+                <text variable="note" suffix="."/>
+              </if>
+              <else>
+                <text variable="note"/>
+              </else>
+            </choose>
+            <group delimiter=" " suffix=".">
+              <group delimiter=", ">
+                <text variable="authority"/>
+                <text variable="publisher"/>
+                <text variable="publisher-place"/>
+              </group>
+              <text macro="year-paren"/>
+            </group>
+          </else-if>
+          <!-- Misc (@misc): title in quotes, howpublished, year -->
+          <else-if type="document">
+            <text macro="title-quoted"/>
+            <group delimiter=" ">
+              <text variable="note"/>
+              <text macro="year-paren"/>
+            </group>
+          </else-if>
+          <!-- Patents and misc -->
+          <else-if type="patent">
+            <text macro="title-quoted"/>
+            <group delimiter=" ">
+              <text variable="number"/>
+              <text macro="year-paren"/>
+            </group>
+          </else-if>
+          <!-- Books (default; also proceedings and manuals) -->
+          <else>
+            <group delimiter=", " suffix=".">
+              <text macro="title-italic"/>
+              <text macro="edition"/>
+              <text macro="version"/>
+            </group>
+            <text macro="series-volume" suffix="."/>
+            <group delimiter=", " suffix=".">
+              <text variable="event-place"/>
+              <date variable="event-date" delimiter=" "><date-part name="month"/><date-part name="day"/></date>
+            </group>
+            <group delimiter=" ">
+              <group delimiter=", ">
+                <text variable="publisher"/>
+                <text variable="authority"/>
+                <text variable="publisher-place"/>
+              </group>
+              <text macro="year-paren"/>
+            </group>
+          </else>
+        </choose>
+      </group>
+      <group delimiter=". " prefix=" " suffix=".">
+        <choose>
+          <if type="webpage post post-weblog software dataset" match="any">
+            <text macro="online-access"/>
+          </if>
+          <else>
+            <text macro="doi-url"/>
+          </else>
+        </choose>
+        <choose>
+          <if type="document webpage post post-weblog software dataset" match="none">
+            <text variable="note" text-case="capitalize-first"/>
+          </if>
+        </choose>
+      </group>
+    </layout>
+  </bibliography>
+</style>
